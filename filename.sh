@@ -3,12 +3,12 @@
 aws s3 cp \
    --recursive \
    s3://bucket-name/ \
-   /home/david/s3-emails/tmpemails/  \
+   /home/govind/s3-emails/tmpemails/  \
    --profile myaccount
 
 # Set location variables:
-tmp_file_location=/home/david/s3-emails/tmpemails/*
-base_location=/home/david/s3-emails/emails/
+tmp_file_location=/home/govind/s3-emails/tmpemails/*
+base_location=/home/govind/s3-emails/emails/
 
 # Create new directory to store today's messages:
 today=$(date +"%m_%d_%Y")
