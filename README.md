@@ -8,11 +8,7 @@ Ocrolus scenario-based question
 ```bash
 #!/bin/bash
 # Retrieve new messages from S3 and save to tmpemails/ directory:
-aws s3 cp \
-   --recursive \
-   s3://bucket-name/ \
-   /home/david/s3-emails/tmpemails/  \
-   --profile myaccount
+aws s3 cp --recursive s3://bucket-name/  /home/govind/s3-emails/tmpemails/  --profile myaccount
 
 # Set location variables:
 tmp_file_location=/home/david/s3-emails/tmpemails/*
@@ -47,7 +43,7 @@ aws s3 cp \
 The cp command stands for "copy," --recursive tells the CLI to apply the operation even to multiple objects, s3://bucket-name points to my bucket (your bucket name will obviously be different), the /home/govind... line is the absolute filesystem address to which I'd like the messages copied,
 and the --profile argument tells the CLI which of my multiple AWS accounts I'm referring to.
 
-```Bash
+```bash
 tmp_file_location=/home/david/s3-emails/tmpemails/*
 base_location=/home/david/s3-emails/emails/
 ```
@@ -56,14 +52,14 @@ how the value of the tmp_file_location variable ends with an asterisk. That's be
 
 I'll create a new permanent directory within the .../emails/ hierarchy to make it easier for me to find messages later. The name of this new directory will be the current date.
 
-```Bash
+```bash
 today=$(date +"%m_%d_%Y")
 [[ -d ${base_location}/"$today" ]] || mkdir ${base_location}/"$today"
 ```
 
 create a new shell variable named today that will be populated by the output of the date +"%m_%d_%Y" command. date itself outputs the full date/timestamp, but what follows ("%m_%d_%Y") edits that output to a simpler and more readable format. If such a directory does not exist (||), then mkdir will create it for me.
 
-```Bash
+```bash
 for FILE in $tmp_file_location
 do
    mv $FILE ${base_location}/${today}/email$(rand)
@@ -88,11 +84,11 @@ done
 
 If I don't clean out my S3 bucket, it'll download all the accumulated messages each time I run the script. That'll make it progressively harder to manage.
 
-So, after successfully downloading my new messages, I run this short script to delete all the files in the bucket:
+So, after successfully downloading my new file, I run this short script to delete all the files in the bucket:
 
 ```Bash
 #!/bin/bash
-# Delete all existing emails 
+# Delete all existing files
 
 aws s3 rm --recursive s3://bucket-name/ --profile myaccount
 ```
