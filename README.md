@@ -11,8 +11,8 @@ Ocrolus scenario-based question
 aws s3 cp --recursive s3://bucket-name/  /home/govind/s3-emails/tmpemails/  --profile myaccount
 
 # Set location variables:
-tmp_file_location=/home/david/s3-emails/tmpemails/*
-base_location=/home/david/s3-emails/emails/
+tmp_file_location=/home/govind/s3-emails/tmpemails/*
+base_location=/home/govind/s3-emails/emails/
 
 # Create new directory to store today's messages:
 today=$(date +"%m_%d_%Y")
@@ -36,7 +36,7 @@ done
 aws s3 cp \
    --recursive \
    s3://bucket-name/ \
-   /home/david/s3-emails/tmpemails/  \
+   /home/govind/s3-emails/tmpemails/  \
    --profile myaccount
    ```
 
@@ -44,8 +44,8 @@ The cp command stands for "copy," --recursive tells the CLI to apply the operati
 and the --profile argument tells the CLI which of my multiple AWS accounts I'm referring to.
 
 ```bash
-tmp_file_location=/home/david/s3-emails/tmpemails/*
-base_location=/home/david/s3-emails/emails/
+tmp_file_location=/home/govind/s3-emails/tmpemails/*
+base_location=/home/govind/s3-emails/emails/
 ```
 
 how the value of the tmp_file_location variable ends with an asterisk. That's because I want to refer to the files within that directory, rather than the directory itself.
@@ -86,9 +86,8 @@ If I don't clean out my S3 bucket, it'll download all the accumulated messages e
 
 So, after successfully downloading my new file, I run this short script to delete all the files in the bucket:
 
-```Bash
+```bash
 #!/bin/bash
 # Delete all existing files
-
 aws s3 rm --recursive s3://bucket-name/ --profile myaccount
 ```
